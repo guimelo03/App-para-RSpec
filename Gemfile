@@ -56,6 +56,8 @@ group :development, :test do
   gem 'faker'
 
   gem 'httparty'
+
+  gem 'csv'
 end
 
 group :development do
