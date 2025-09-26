@@ -4,8 +4,7 @@ RSpec.describe Customer, type: :model do
 
   it '#name - Sobrescrevendo atributo' do
     customer = create(:customer, name: "Guilherme Melo")
-    customer1 = create(:customer, name: "Guilherme Melo")
-    expect(customer.name).to eq("Guilherme Melo")
+    expect(customer.full_name).to eq("Sr. Guilherme Melo")
   end
 
   it '#vip' do
@@ -15,13 +14,13 @@ RSpec.describe Customer, type: :model do
 
   it '#name' do
     customer = create(:user) #create(:customer)
-    expect(customer.name).to start_with("Sr. ")
+    expect(customer.full_name).to start_with("Sr.")
   end
 
   it 'Usando o attributes for' do
     attrs = attributes_for(:customer)
     customer = Customer.create(attrs)
-    expect(customer.name).to start_with("Sr. ")
+    expect(customer.full_name).to start_with("Sr. ")
   end
 
   it 'Atributo  Transitóiro' do
