@@ -1,0 +1,11 @@
+guilherme:
+  name: Sr. Guilherme Melo
+  email: guilherme@melo.com
+  vip true
+  days_to_pay 30
+
+jose:
+  name: José da Silva
+  email: jose@jose.com
+  vip false
+  days_to_pay 10
