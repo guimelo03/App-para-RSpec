@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_26_212729) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_26_221324) do
   create_table "customers", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -19,6 +19,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_26_212729) do
     t.boolean "vip"
     t.integer "days_to_pay"
     t.string "gender"
+    t.string "address"
   end
 
   create_table "orders", force: :cascade do |t|
