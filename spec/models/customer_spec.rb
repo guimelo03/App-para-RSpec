@@ -4,6 +4,7 @@ RSpec.describe Customer, type: :model do
 
   it '#name - Sobrescrevendo atributo' do
     customer = create(:customer, name: "Guilherme Melo")
+    customer1 = create(:customer, name: "Guilherme Melo")
     expect(customer.name).to eq("Guilherme Melo")
   end
 
