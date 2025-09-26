@@ -7,8 +7,8 @@ RSpec.describe Order, type: :model do
   end
 
   it 'Possui 3 pedidos - create_list' do
-    orders = create_list(:order, 3)
-    expect(orders.count).to eq(3)
+    orders = create_pair(:order)
+    expect(orders.count).to eq(2)
   end
 
   it 'has_many' do
