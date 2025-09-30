@@ -46,18 +46,13 @@ group :development, :test do
 
   gem 'rspec-rails'
   gem 'capybara'
-
   gem "brakeman", require: false
-
   gem "rubocop-rails-omakase", require: false
-
   gem 'factory_bot_rails'
-
   gem 'faker'
-
   gem 'httparty'
-
   gem 'csv'
+  gem 'webmock'
 end
 
 group :development do
