@@ -53,6 +53,7 @@ group :development, :test do
   gem 'httparty'
   gem 'csv'
   gem 'webmock'
+  gem 'vcr'
 end
 
 group :development do
