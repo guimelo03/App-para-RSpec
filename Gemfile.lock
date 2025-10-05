@@ -353,6 +353,7 @@ GEM
     thruster (0.1.15)
     thruster (0.1.15-aarch64-linux)
     thruster (0.1.15-x86_64-linux)
+    timecop (0.9.10)
     timeout (0.4.3)
     tsort (0.2.0)
     turbo-rails (2.0.16)
@@ -418,6 +419,7 @@ DEPENDENCIES
   sqlite3 (>= 2.1)
   stimulus-rails
   thruster
+  timecop
   turbo-rails
   tzinfo-data
   vcr

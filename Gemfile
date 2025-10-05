@@ -54,6 +54,7 @@ group :development, :test do
   gem 'csv'
   gem 'webmock'
   gem 'vcr'
+  gem 'timecop'
 end
 
 group :development do
