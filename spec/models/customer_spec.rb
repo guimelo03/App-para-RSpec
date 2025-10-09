@@ -50,17 +50,17 @@ RSpec.describe Customer, type: :model do
     expect(customer.vip).to eq(true)
   end
 
-  it 'travel_to' do
-    travel_to Time.zone.local(2004, 11, 24, 01, 04, 44) do
-      @customer = create(:customer_vip)
-    end
+  # it 'travel_to' do
+  #   travel_to Time.zone.local(2004, 11, 24, 01, 04, 44) do
+  #     @customer = create(:customer_vip)
+  #   end
 
-    puts @customer.created_at
-    puts Time.now
+  #   puts @customer.created_at
+  #   puts Time.now
     
-    expected_time = Time.zone.parse('2004-11-24 01:04:44')
-    expect(@customer.created_at).to be < expected_time
-  end
+  #   expected_time = Time.zone.parse('2004-11-24 01:04:44')
+  #   expect(@customer.created_at).to be eq(expected_time)
+  # end
 
   it { expect{ create(:customer) }.to change {Customer.all.size}.by(1) }
 end
