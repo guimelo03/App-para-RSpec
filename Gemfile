@@ -55,6 +55,7 @@ group :development, :test do
   gem 'webmock'
   gem 'vcr'
   gem 'timecop'
+  gem 'shoulda-matchers'
 end
 
 group :development do
