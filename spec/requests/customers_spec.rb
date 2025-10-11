@@ -13,19 +13,52 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/customers", type: :request do
+  include Devise::Test::IntegrationHelpers
   
   # This should return the minimal set of attributes required to create a valid
   # Customer. As you add validations to Customer, be sure to
   # adjust the attributes here as well.
 
-  it 'GET responds successfully' do
-    get customers_path
-    expect(response).to be_successful
+  describe 'as a Guest' do
+    context '#index' do
+      it 'GET responds successfully' do
+        get customers_path
+        expect(response).to be_successful
+      end
+
+      it 'GET responds a 200 response' do
+        get customers_path
+        expect(response).to have_http_status(200)
+      end
+    end
+
+    it 'SHOW responds a 302 response (not authorized)' do
+      customer = create(:customer)
+      get customer_url(customer.id)
+      expect(response).to have_http_status(302)
+    end
   end
 
-  it 'GET responds a 200 response' do
-    get customers_path
-    expect(response).to have_http_status(200)
+  describe 'as Logged Member' do
+    it '#show' do
+      member = create(:member)
+      customer = create(:customer)
+
+      sign_in(member)
+
+      get customer_url(customer)
+      expect(response).to have_http_status(200)
+    end
+
+    it 'renders a show template' do
+      member = create(:member)
+      customer = create(:customer)
+
+      sign_in(member)
+
+      get customer_path(customer)
+      expect(response).to render_template(:show)
+    end
   end
 
   let(:valid_attributes) {
@@ -54,6 +87,10 @@ RSpec.describe "/customers", type: :request do
 
   describe "GET /new" do
     it "renders a successful response" do
+      
+      member = create(:member)
+      sign_in member
+
       get new_customer_url
       expect(response).to be_successful
     end
