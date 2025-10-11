@@ -58,6 +58,7 @@ group :development, :test do
   gem 'vcr'
   gem 'timecop'
   gem 'shoulda-matchers'
+  gem 'rails-controller-testing'
 end
 
 group :development do
