@@ -45,6 +45,15 @@ RSpec.describe "/customers", type: :request do
       @customer = create(:customer)
     end
 
+    it 'responds successfully to GET /customers as a logged member' do
+      sign_in @member
+      get customers_path
+
+      expect(response).to have_http_status(200)
+
+      expect(response).to render_template(:index)
+    end
+
     it 'Flash Notice successfull' do
       customer_params = attributes_for(:customer)
       sign_in @member
@@ -72,7 +81,7 @@ RSpec.describe "/customers", type: :request do
       expect(response.content_type).to eq('application/json; charset=utf-8')
     end
 
-    it 'with valid attributes' do
+    it 'with invalid attributes' do
       customer_params = attributes_for(:customer)
       sign_in @member
       post customers_path, params: { customer: customer_params }
@@ -83,6 +92,14 @@ RSpec.describe "/customers", type: :request do
     end
 
     it 'with valid attributes' do
+      customer_params = attributes_for(:customer, address: nil)
+      sign_in @member
+      
+      post customers_path, params: { customer: customer_params }
+      
+      expect{
+        post customers_path, params: { customer: customer_params }
+      }.not_to change(Customer, :count)
     end
 
     it '#show' do
