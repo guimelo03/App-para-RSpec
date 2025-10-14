@@ -40,6 +40,21 @@ RSpec.describe "/customers", type: :request do
   end
 
   describe 'as Logged Member' do
+    before do
+      @member = create(:member)
+      @customer = create(:customer)
+    end
+
+    it 'with valid attributes' do
+      customer_params = attributes_for(:customer)
+      sign_in @member
+      post customers_path, params: { customer: customer_params }
+      
+      expect{
+        post customers_path, params: { customer: customer_params }
+    }.to change(Customer, :count).by(1)
+    end
+
     it '#show' do
       member = create(:member)
       customer = create(:customer)
