@@ -66,6 +66,12 @@ RSpec.describe "/customers", type: :request do
       expect(flash[:notice]).to be_present 
     end
 
+    it 'Content-Type JSON' do
+      sign_in @member
+      get customers_path, params: { id: @customer.id, format: :json }
+      expect(response.content_type).to eq('application/json; charset=utf-8')
+    end
+
     it 'with valid attributes' do
       customer_params = attributes_for(:customer)
       sign_in @member
@@ -74,6 +80,9 @@ RSpec.describe "/customers", type: :request do
       expect{
         post customers_path, params: { customer: customer_params }
     }.to change(Customer, :count).by(1)
+    end
+
+    it 'with valid attributes' do
     end
 
     it '#show' do
