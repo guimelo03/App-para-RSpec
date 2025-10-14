@@ -45,7 +45,16 @@ RSpec.describe "/customers", type: :request do
       @customer = create(:customer)
     end
 
-    it 'Flash Notice' do
+    it 'Flash Notice successfull' do
+      customer_params = attributes_for(:customer)
+      sign_in @member
+
+      post customers_path, params: { customer: customer_params }
+
+      expect(flash[:notice]).to match(/successfully created/)
+    end
+
+    it 'Flash Notice is present' do
       customer_params = attributes_for(:customer)
       sign_in @member
 
