@@ -45,6 +45,18 @@ RSpec.describe "/customers", type: :request do
       @customer = create(:customer)
     end
 
+    it 'Flash Notice' do
+      customer_params = attributes_for(:customer)
+      sign_in @member
+
+      expect {
+        post customers_path, params: { customer: customer_params }
+      }.to change(Customer, :count).by(1)
+
+      expect(response).to have_http_status(:found) 
+      expect(flash[:notice]).to be_present 
+    end
+
     it 'with valid attributes' do
       customer_params = attributes_for(:customer)
       sign_in @member
