@@ -38,6 +38,7 @@ RSpec.configure do |config|
 
   #Devise
   config.include Devise::Test::IntegrationHelpers, :type => :request
+  config.include Warden::Test::Helpers
   
   #Shoulda Matchers
   Shoulda::Matchers.configure do |config|
