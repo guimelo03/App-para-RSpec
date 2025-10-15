@@ -1,18 +1,31 @@
 #webmock gem
 require 'webmock/rspec'
 
+Selenium::WebDriver::Chrome::Service.driver_path = '/usr/local/bin/chromedriver'
 
 VCR.configure do |config|
   config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
   config.hook_into :webmock
   config.configure_rspec_metadata!
   config.filter_sensitive_data('<API-URL>') {'https://jsonplaceholder.typicode.com/posts/2'}
+  
+  config.ignore_localhost = true
+  config.ignore_hosts '127.0.0.1', 'localhost', '0.0.0.0', 'chromedriver.storage.googleapis.com'
 end
+
+# WebMock pode acessar o Google para baixar o driver
+WebMock.disable_net_connect!(allow_localhost: true, allow: ['chromedriver.storage.googleapis.com'])
 
 # Capybara Chrome Headless
 Capybara.register_driver :chrome do |app|
-  Capybara::Selenium::Driver.new app, browser: :chrome,
-  Options: Selenium::WebDriver::Chrome::Options.new(args: %w[headless disable-gpu])
+  options = Selenium::WebDriver::Chrome::Options.new
+  options.add_argument('--headless')
+  options.add_argument('--disable-gpu')
+  options.add_argument('--no-sandbox')
+  options.add_argument('--disable-dev-shm-usage')
+  options.add_argument('--window-size=1920,1080')
+
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
 
 Capybara.javascript_driver = :chrome
