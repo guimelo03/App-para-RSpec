@@ -59,6 +59,8 @@ group :development, :test do
   gem 'timecop'
   gem 'shoulda-matchers'
   gem 'rails-controller-testing'
+  gem 'selenium-webdriver'
+  gem 'webdrivers'
 end
 
 group :development do
