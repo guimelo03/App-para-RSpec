@@ -61,6 +61,7 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'selenium-webdriver'
   gem 'webdrivers'
+  gem 'rspec-json_expectations'
 end
 
 group :development do
