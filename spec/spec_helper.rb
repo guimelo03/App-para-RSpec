@@ -49,12 +49,14 @@ Capybara.javascript_driver = :chrome
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
 
-  config.order = "random"
+  # Para testes em ordem aleatória, habilite esta linha abaixo.
+  # config.order = "random"
 
-  config.before(:suite) do
-    FactoryBot.lint
-  end
-  #O lint pode impactar negativamente a performance...
+  # config.before(:suite) do
+  #   FactoryBot.lint
+  # end
+  
+  # O lint pode impactar negativamente a performance e causar conflitos com o Git Actions
 
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
