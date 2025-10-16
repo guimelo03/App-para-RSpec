@@ -32,11 +32,13 @@ RSpec.describe "/customers", type: :request do
       end
     end
 
-    it 'SHOW responds a 302 response (not authorized)' do
-      customer = create(:customer)
-      get customer_url(customer.id)
-      expect(response).to have_http_status(302)
-    end
+    #O SHOW agora não pede mais autenticação no controller, então irá retornar 200.
+
+    # it 'SHOW responds a 302 response (not authorized)' do
+    #   customer = create(:customer)
+    #   get customer_url(customer.id)
+    #   expect(response).to have_http_status(302)
+    # end
   end
 
   describe 'as Logged Member' do
@@ -130,6 +132,79 @@ RSpec.describe "/customers", type: :request do
   let(:invalid_attributes) {
     skip("Add a hash of attributes invalid for your model")
   }
+
+  describe 'GET /customers' do
+    it 'works! 200 OK' do
+      get customers_path
+      expect(response).to have_http_status(200)
+    end
+
+    it 'index - JSON' do
+      get "/customers.json"
+      expect(response).to have_http_status(200)
+      expect(response.body).to include_json([ 
+        id: /\d/,
+        name: (be_kind_of String),
+        email: (be_kind_of String)
+      ])
+    end
+
+    it 'show - JSON' do
+      get "/customers/1.json"
+      expect(response).to have_http_status(200)
+      expect(response.body).to include_json(
+        id: /\d/,
+        name: (be_kind_of String),
+        email: (be_kind_of String)
+      )
+    end
+
+    it 'create - JSON' do
+      member = create(:member)
+      login_as(member, scope: :member)
+      
+      headers = { "ACCEPT" => "application/json" }
+
+      customers_params = attributes_for(:customer)
+      post "/customers.json", params: { customer: customers_params, headers: headers }
+
+      expect(response.body).to include_json(
+        id: /\d/,
+        name: customers_params[:name],
+        email: customers_params.fetch(:email)
+      )
+    end
+
+    it 'update - JSON' do
+      member = create(:member)
+      login_as(member, scope: :member)
+
+      headers = { "ACCEPT" => "application/json" }
+
+      customers = Customer.first
+      customers.name += " - ATUALIZADO"
+
+      patch "/customers/#{customers.id}.json", params: {
+         customer: customers.attributes }, headers: headers
+
+      expect(response.body).to include_json(
+        id: /\d/,
+        name: customers.name,
+        email: customers.email
+      )
+    end
+
+    it 'destroy - JSON' do
+      member = create(:member)
+      login_as(member, scope: :member)
+
+      headers = { "ACCEPT" => "application/json" }
+
+      customers = Customer.first
+
+      expect{ delete "/customers/#{customers.id}.json", headers: headers }.to change(Customer, :count).by(-1)
+    end
+  end
 
   describe "GET /index" do
     it "renders a successful response" do
