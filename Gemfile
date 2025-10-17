@@ -62,6 +62,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
   gem 'rspec-json_expectations'
+  gem 'json_matchers'
 end
 
 group :development do

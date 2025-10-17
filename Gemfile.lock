@@ -151,6 +151,9 @@ GEM
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
     json (2.15.0)
+    json_matchers (0.11.1)
+      json_schema
+    json_schema (0.21.0)
     kamal (2.7.0)
       activesupport (>= 7.0)
       base64 (~> 0.2)
@@ -439,6 +442,7 @@ DEPENDENCIES
   httparty
   importmap-rails
   jbuilder
+  json_matchers
   kamal
   propshaft
   puma (>= 5.0)
