@@ -1,6 +1,9 @@
 #webmock gem
 require 'webmock/rspec'
 
+# JSON Schema
+require 'json_matchers/rspec'
+
 Selenium::WebDriver::Chrome::Service.driver_path = '/usr/local/bin/chromedriver'
 
 VCR.configure do |config|
